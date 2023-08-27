@@ -53,7 +53,7 @@ class LSH {
         let hashBits: string = ''
         for (let i = 0; i < this.k; i++) {
             const dotProduct = vector.reduce(
-                (sum, value, idx) => sum + value * this.randomProjections[i][idx],
+                (sum, value, idx) => sum + value * this.randomProjections[i]![idx]!,
                 0
             )
             hashBits += dotProduct >= 0 ? '1' : '0'

@@ -4,7 +4,7 @@ import { CustomDBSchema } from '..'
 export interface Vector {
     id?: number
     text: string
-    vector: Float32Array
+    vector: Float32Array | number[]
     hash?: string
     magnitude?: number
     timestamp?: number

@@ -1,8 +1,8 @@
 import { LSH, Vector, helpers } from '..'
 
 export class VectorDTO implements Vector {
-    id: number
-    text: string
+    id?: number
+    text: string 
     vector: Float32Array
 
     hash?: string
@@ -12,6 +12,7 @@ export class VectorDTO implements Vector {
 
     constructor(vector: Vector) {
         this.id = vector.id
+        this.text = vector.text
         this.vector = Array.isArray(vector.vector) ? new Float32Array(vector.vector) : vector.vector
     }
 
@@ -27,5 +28,10 @@ export class VectorDTO implements Vector {
 
     asFloat32Array(): Float32Array {
         return this.vector
+    }
+
+    forInsert() {
+        const { id, ...vec } = this;
+        return vec;
     }
 }

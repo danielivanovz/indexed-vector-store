@@ -34,7 +34,7 @@ export class Helpers {
     static dotProduct(vecA: Float32Array, vecB: Float32Array) {
         return vecA.length !== vecB.length
             ? null
-            : Array.from(vecA).reduce((acc, val, i) => acc + val * vecB[i], 0)
+            : Array.from(vecA).reduce((acc, val, i) => acc + val * vecB[i]!, 0)
     }
 
     /**
@@ -81,7 +81,7 @@ export class Helpers {
         const normalize = (val: number) => (val + 1) / 2
 
         return magA === 0 || magB === 0
-            ? null
+            ? 0
             : normalize(dot / (magA * magB))
     }
 }

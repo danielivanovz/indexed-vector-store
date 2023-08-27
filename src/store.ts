@@ -10,6 +10,7 @@ import {
     Transaction,
     Vector,
     VectorCache,
+    VectorDTO,
     VectorStoreConfig,
     VectorStoreInterface,
     defaultConfig,
@@ -104,21 +105,6 @@ export class VectorStore<T> implements VectorStoreInterface {
     }
 
     /**
-     * Hydrates a given vector with additional attributes like hash and magnitude.
-     *
-     * @param record - The original vector record.
-     *
-     * @returns The hydrated vector.
-     * @private
-     */
-    private hydrateVec(record: Vector): Vector {
-        const vecf32 = new Float32Array(record.vector)
-        const hash = this.lsh.computeHash(vecf32)
-        const magnitude = helpers.computeMagnitude(vecf32)
-        return { ...record, hash, magnitude, vector: vecf32 }
-    }
-
-    /**
      * Inserts an array of vectors into the store.
      *
      * @param records - An array of insertable records.
@@ -146,7 +132,7 @@ export class VectorStore<T> implements VectorStoreInterface {
             const { tx, store } = this.transaction('readwrite', skipDuplicates)
 
             const promises = typedRecords.map((record: Vector) => {
-                const hydrated = this.hydrateVec(record)
+                const hydrated = new VectorDTO(record).hydrateVec(this.lsh).forInsert()
                 return store.add!({ ...record, ...hydrated, timestamp })
             })
 
@@ -178,7 +164,7 @@ export class VectorStore<T> implements VectorStoreInterface {
 
         const { tx, store } = this.transaction('readonly')
 
-        const vectorf32 = new Float32Array(vector.vector)
+        const vectorf32 = new VectorDTO(vector).asFloat32Array()
         const get = async (index: string, range: any) => await store.index(index).getAll(range)
 
         // prettier-ignore
@@ -195,13 +181,13 @@ export class VectorStore<T> implements VectorStoreInterface {
         const bucket = await QueryStrategy[indexName]().finally(() => tx.done)
 
         bucket.forEach((vector: Vector) => {
-            const similarity = helpers.cosine(vectorf32, vector.vector)
+            const similarity = helpers.cosine(vectorf32, vector.vector as Float32Array)
             this.heap.insert({ ...vector, score: similarity })
         })
 
-        const sorted: Array<Vector & { score: number }> = Array.from({ length: limit }, () =>
-            this.heap.extractMax()
-        ).filter((v) => v !== null) as Array<Vector & { score: number }>
+        const sorted = Array.from({ length: limit }, () => this.heap.extractMax()).filter(
+            (v) => v !== null
+        ) as Array<Vector & { score: number }>
 
         this.cache.set(cacheKey, sorted)
 
@@ -218,7 +204,7 @@ export class VectorStore<T> implements VectorStoreInterface {
      */
     async update(id: number, record: Vector): Promise<void> {
         const { tx, store } = this.transaction('readwrite')
-        const hydrated = this.hydrateVec(record)
+        const hydrated = new VectorDTO(record).hydrateVec(this.lsh)
 
         await store.put!({ ...hydrated, id })
             .then(() => tx.done)
@@ -257,7 +243,7 @@ export class VectorStore<T> implements VectorStoreInterface {
      * @param filename - The name of the file to export to.
      *
      */
-    async exportToFile(filename: string): Promise<void> {
+    async exportToFile(filename?: string): Promise<void> {
         const { tx, store } = this.transaction('readonly')
 
         const vectors = await store.getAll().finally(() => tx.done)
