@@ -1,0 +1,7 @@
+{
+    "entryPoints": ["./src/index.ts"],
+    "exclude": ["**/*.wasm"],
+    "excludeExternals": true,
+    "excludeNotDocumented": true
+  }
+  
