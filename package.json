@@ -9,7 +9,6 @@
         "embeddings"
     ],
     "homepage": "https://github.com/danielivanovz/indexed-vector-db",
-    "private": true,
     "main": "dist/index.js",
     "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
