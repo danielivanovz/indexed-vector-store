@@ -1,12 +1,22 @@
 {
     "name": "indexed-vector-store",
+    "description": "Vector Storage is a lightweight, browser-based database that enables semantic similarity searches and local storage of text vectors, offering privacy, low latency, and cost-effectiveness for NLP applications.",
     "version": "1.0.0",
     "license": "MIT",
     "keywords": [
+        "natural-language-processing",
         "indexeddb",
         "vector-store",
         "vector-database",
-        "embeddings"
+        "embeddings",
+        "word-embeddings",
+        "semantic-search",
+        "similarity-search",
+        "embeddings-search",
+        "similarity",
+        "semantic",
+        "search",
+        "nlp"
     ],
     "homepage": "https://github.com/danielivanovz/indexed-vector-db",
     "main": "dist/index.js",
