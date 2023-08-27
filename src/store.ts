@@ -1,13 +1,20 @@
-import { IDBPDatabase, IDBPObjectStore, IDBPTransaction } from 'idb'
+import { IDBPDatabase } from 'idb'
 
-import { VectorStoreInterface, Vector, IndexName, Insertable } from './vector-store/vector.types'
-import { VectorStoreConfig, defaultConfig } from './vector-store/vector.config'
-import { DBSchema, EmbeddingStrategy, LSH, MaxHeap, VectorCache, helpers } from '.'
-
-interface Transaction<T extends string> {
-    tx: IDBPTransaction<DBSchema, [T], IDBTransactionMode>
-    store: IDBPObjectStore<DBSchema, [T], T, IDBTransactionMode>
-}
+import {
+    CustomDBSchema,
+    EmbeddingStrategy,
+    IndexName,
+    Insertable,
+    LSH,
+    MaxHeap,
+    Transaction,
+    Vector,
+    VectorCache,
+    VectorStoreConfig,
+    VectorStoreInterface,
+    defaultConfig,
+    helpers,
+} from '.'
 
 /**
  * `VectorStore` class for managing vector embeddings.
@@ -17,7 +24,7 @@ interface Transaction<T extends string> {
  * const store = new VectorStore(db, { lsh: { dimension: 128, k: 50 }, magnitude: { tolerance: 0.5 }});
  */
 export class VectorStore<T> implements VectorStoreInterface {
-    private db: IDBPDatabase<DBSchema>
+    private db: IDBPDatabase<CustomDBSchema>
     private config: VectorStoreConfig = defaultConfig
 
     private lsh: LSH = new LSH(this.config.lsh.dimension, this.config.lsh.k)
@@ -34,7 +41,7 @@ export class VectorStore<T> implements VectorStoreInterface {
      *
      * @throws {Error} Throws an error if the provided configuration is invalid.
      */
-    constructor(db: IDBPDatabase<DBSchema>, config: VectorStoreConfig = defaultConfig) {
+    constructor(db: IDBPDatabase<CustomDBSchema>, config: VectorStoreConfig = defaultConfig) {
         this.validateConfig(config)
         this.db = db
         this.config = config

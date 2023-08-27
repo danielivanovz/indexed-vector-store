@@ -1,36 +1,41 @@
 import { UpgradeStrategy } from './db.strategy'
 
 export interface EmbeddingValue {
-    readonly id: string
-    readonly hash: string
-    readonly text: string
-    readonly vector: number[]
+    id: string
+    vector: number[]
 }
 
 export interface EmbeddingsStore {
-    readonly key: 'id'
-    readonly value: EmbeddingValue
-    readonly indexes: {
-        readonly name: 'hash'
-        readonly magnitude: 'magnitude'
-        readonly vector: 'vector'
+    key: 'id'
+    value: EmbeddingValue
+    indexes: {
+        hash: string
+        magnitude: string
+        vector: string
+        text: string
+        timestamp: string
     }
 }
 
-export interface DBSchema {
-    readonly embeddings: EmbeddingsStore
+export interface CustomDBSchema {
+    embeddings: EmbeddingsStore
 }
 
-export interface DBConfig {
-    readonly database: {
-        readonly name: string
-        readonly version: number
+export interface CustomDBConfig {
+    database: {
+        name: string
+        version: number
     }
-    readonly storeName: string[]
-    readonly keyPath: 'id'
-    readonly strategy: UpgradeStrategy<DBSchema>
-    readonly options: {
-        readonly autoIncrement: boolean
+    storeName: string[]
+    keyPath: 'id'
+    strategy: UpgradeStrategy<CustomDBSchema>
+    options: {
+        autoIncrement: boolean
     }
-    readonly uniqueIndexes: string[]
+    uniqueIndexes: string[]
+}
+
+export interface EmbeddingValue {
+    id: string
+    vector: number[]
 }

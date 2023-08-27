@@ -1,5 +1,11 @@
 # indexed-vector-store
 
+## 1.1.1
+
+### Patch Changes
+
+-   alighned type mismatch
+
 ## 1.1.0
 
 ### Major Changes

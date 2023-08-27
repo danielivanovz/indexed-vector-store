@@ -1,6 +1,6 @@
-import { IDBPDatabase, IndexNames } from 'idb'
+import { IDBPDatabase, IndexNames, StoreNames } from 'idb'
 import { schemadb } from './db.config'
-import { DBConfig, DBSchema } from './db.types'
+import { CustomDBConfig, CustomDBSchema } from './db.types'
 
 export interface UpgradeStrategy<DBSchemaType> {
     upgrade(
@@ -9,8 +9,16 @@ export interface UpgradeStrategy<DBSchemaType> {
     ): void
 }
 
-export class EmbeddingsUpgradeStrategy implements UpgradeStrategy<DBSchema> {
-    upgrade(db: IDBPDatabase<DBSchema>, config: DBConfig): void {
+export class EmbeddingsUpgradeStrategy implements UpgradeStrategy<CustomDBSchema> {
+    upgrade(
+        db: IDBPDatabase<CustomDBSchema>,
+        config: {
+            storeName: StoreNames<CustomDBSchema>[]
+            keyPath: string
+            options?: IDBObjectStoreParameters
+            uniqueIndexes: string[]
+        }
+    ): void {
         const { keyPath, options } = config
 
         for (const storeName of config.storeName) {
@@ -20,7 +28,7 @@ export class EmbeddingsUpgradeStrategy implements UpgradeStrategy<DBSchema> {
                 Object.entries(schemadb.embeddings.indexes!).forEach(
                     ([indexName, indexKeyPath]) => {
                         store.createIndex(
-                            indexName as IndexNames<DBSchema, typeof storeName>,
+                            indexName as IndexNames<CustomDBSchema, typeof storeName>,
                             indexKeyPath as string,
                             config.uniqueIndexes.includes(indexName)
                                 ? { unique: true }

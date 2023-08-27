@@ -1,13 +1,14 @@
-import { DBSchema } from 'idb'
-import { EmbeddingsUpgradeStrategy } from './db.strategy'
-import { DBConfig } from './db.types'
 
-export const schemadb: DBSchema = {
+import { EmbeddingsUpgradeStrategy } from "./db.strategy"
+import { CustomDBConfig, CustomDBSchema } from "./db.types"
+
+
+export const schemadb: CustomDBSchema = {
     embeddings: {
         key: 'id',
         value: {
-            id: 'id',
-            vector: 'vector',
+            id: '',
+            vector: [],
         },
         indexes: {
             hash: 'hash',
@@ -17,9 +18,10 @@ export const schemadb: DBSchema = {
             timestamp: 'timestamp',
         },
     },
-}
+};
 
-export const configdb: DBConfig = {
+
+export const configdb: CustomDBConfig = {
     database: { name: 'vector-store', version: 1 },
     storeName: ['embeddings'],
     keyPath: 'id',

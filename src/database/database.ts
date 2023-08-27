@@ -1,5 +1,4 @@
-import { configdb } from './db.config'
-import { InitDB } from './db.instance'
+import { InitDB, configdb } from '..'
 
 const {
     database: { name, version },

@@ -1,3 +1,7 @@
+import { IDBPObjectStore, IDBPTransaction } from "idb"
+import { CustomDBSchema } from ".."
+
+
 export interface Vector {
     id?: number
     text: string
@@ -6,6 +10,11 @@ export interface Vector {
     magnitude?: number
     timestamp?: number
     score?: number
+}
+
+export interface Transaction<T extends string> {
+    tx: IDBPTransaction<CustomDBSchema, [T], IDBTransactionMode>
+    store: IDBPObjectStore<CustomDBSchema, [T], T, IDBTransactionMode>
 }
 
 export type Insertable = Vector | string

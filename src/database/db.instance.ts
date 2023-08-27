@@ -1,7 +1,5 @@
 import { IDBPDatabase, StoreNames, openDB } from 'idb'
-
-import { DBSchema } from './db.types'
-import { UpgradeStrategy } from './db.strategy'
+import { CustomDBSchema, UpgradeStrategy } from '..'
 
 export class InitDB {
     private static _instance: InitDB
@@ -25,18 +23,16 @@ export class InitDB {
         this.version = version
     }
 
-    public open<DBSchemaType extends DBSchema>(config: {
+    public open<DBSchemaType extends CustomDBSchema>(config: {
         storeName: StoreNames<DBSchemaType>[]
         keyPath: string
         options?: IDBObjectStoreParameters
         strategy: UpgradeStrategy<DBSchemaType>
         uniqueIndexes: string[]
     }): Promise<IDBPDatabase<DBSchemaType>> {
-        const { storeName, keyPath, options, uniqueIndexes } = config
-
+        const { storeName, keyPath, options, strategy, uniqueIndexes } = config
         return openDB<DBSchemaType>(this.name, this.version, {
-            upgrade: (db) =>
-                config.strategy.upgrade(db, { storeName, keyPath, options, uniqueIndexes }),
+            upgrade: (db) => strategy.upgrade(db, { storeName, keyPath, options, uniqueIndexes }),
         })
     }
 }
