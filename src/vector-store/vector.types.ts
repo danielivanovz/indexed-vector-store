@@ -1,6 +1,5 @@
-import { IDBPObjectStore, IDBPTransaction } from "idb"
-import { CustomDBSchema } from ".."
-
+import { IDBPObjectStore, IDBPTransaction } from 'idb'
+import { CustomDBSchema } from '..'
 
 export interface Vector {
     id?: number

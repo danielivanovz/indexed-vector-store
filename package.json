@@ -1,7 +1,7 @@
 {
     "name": "indexed-vector-store",
     "description": "Vector Storage is a lightweight, browser-based database that enables semantic similarity searches and local storage of text vectors, offering privacy, low latency, and cost-effectiveness for NLP applications.",
-    "version": "1.1.1",
+    "version": "1.2.0",
     "license": "MIT",
     "keywords": [
         "natural-language-processing",
