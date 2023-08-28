@@ -6,7 +6,7 @@ export interface EmbeddingValue {
 }
 
 export interface EmbeddingsStore {
-    key: 'id'
+    key: string
     value: EmbeddingValue
     indexes: {
         hash: string
@@ -27,7 +27,7 @@ export interface CustomDBConfig {
         version: number
     }
     storeName: string[]
-    keyPath: 'id'
+    keyPath: 'vector'
     strategy: UpgradeStrategy<CustomDBSchema>
     options: {
         autoIncrement: boolean

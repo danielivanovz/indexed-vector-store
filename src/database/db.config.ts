@@ -5,7 +5,7 @@ import { CustomDBConfig, CustomDBSchema } from "./db.types"
 
 export const schemadb: CustomDBSchema = {
     embeddings: {
-        key: 'id',
+        key: 'vector',
         value: {
             id: '',
             vector: [],
@@ -24,7 +24,7 @@ export const schemadb: CustomDBSchema = {
 export const configdb: CustomDBConfig = {
     database: { name: 'vector-store', version: 1 },
     storeName: ['embeddings'],
-    keyPath: 'id',
+    keyPath: 'vector',
     strategy: new EmbeddingsUpgradeStrategy(),
     options: { autoIncrement: true },
     uniqueIndexes: ['text'],

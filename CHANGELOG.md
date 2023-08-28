@@ -1,5 +1,11 @@
 # indexed-vector-store
 
+## 1.3.1
+
+### Patch Changes
+
+-   modified default keypath id -> vector
+
 ## 1.3.0
 
 ### Minor Changes
