@@ -17,5 +17,5 @@ export * from './vector-store/vector.lsh'
 export * from './vector-store/vector.types'
 export * from './vector-store/vector.dto'
 
-export { database } from './database/database'
+export { initializeDB } from './database/database'
 export { VectorStore } from './store'

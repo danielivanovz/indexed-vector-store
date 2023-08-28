@@ -1,4 +1,4 @@
-[indexed-vector-db](../README.md) / VectorCache
+[indexed-vector-store](../README.md) / VectorCache
 
 # Class: VectorCache<K, V\>
 
@@ -58,7 +58,7 @@ Initializes a new VectorCache object with the specified maximum size.
 
 #### Defined in
 
-vector-store/vector.cache.ts:25
+[vector-store/vector.cache.ts:25](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.cache.ts#L25)
 
 ## Methods
 
@@ -74,7 +74,7 @@ Clears all items from the cache.
 
 #### Defined in
 
-vector-store/vector.cache.ts:65
+[vector-store/vector.cache.ts:65](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.cache.ts#L65)
 
 ___
 
@@ -99,7 +99,7 @@ The value associated with the key or `undefined` if the key does not exist.
 
 #### Defined in
 
-vector-store/vector.cache.ts:36
+[vector-store/vector.cache.ts:36](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.cache.ts#L36)
 
 ___
 
@@ -123,4 +123,4 @@ If the cache is full, removes the least recently used item.
 
 #### Defined in
 
-vector-store/vector.cache.ts:54
+[vector-store/vector.cache.ts:54](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.cache.ts#L54)

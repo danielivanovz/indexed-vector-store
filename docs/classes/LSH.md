@@ -1,4 +1,4 @@
-[indexed-vector-db](../README.md) / LSH
+[indexed-vector-store](../README.md) / LSH
 
 # Class: LSH
 
@@ -41,7 +41,7 @@ Initializes a new `LSH` instance.
 
 #### Defined in
 
-vector-store/vector.lsh.ts:20
+[vector-store/vector.lsh.ts:20](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.lsh.ts#L20)
 
 ## Methods
 
@@ -68,4 +68,4 @@ The computed hash as a string of '0's and '1's.
 
 #### Defined in
 
-vector-store/vector.lsh.ts:51
+[vector-store/vector.lsh.ts:51](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.lsh.ts#L51)

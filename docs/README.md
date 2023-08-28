@@ -1,6 +1,6 @@
-indexed-vector-db
+indexed-vector-store
 
-# indexed-vector-db
+# indexed-vector-store
 
 ## Table of contents
 
@@ -37,4 +37,4 @@ defaultConfig
 
 #### Defined in
 
-vector-store/vector.config.ts:62
+[vector-store/vector.config.ts:62](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.config.ts#L62)

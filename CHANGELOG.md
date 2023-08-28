@@ -1,5 +1,11 @@
 # indexed-vector-store
 
+## 1.3.0
+
+### Minor Changes
+
+-   changed database initialization exposure
+
 ## 1.2.1
 
 ### Patch Changes

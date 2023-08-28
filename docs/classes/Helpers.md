@@ -1,9 +1,8 @@
-[indexed-vector-db](../README.md) / Helpers
+[indexed-vector-store](../README.md) / Helpers
 
 # Class: Helpers
 
 A utility class that provides various helper methods for vector operations.
-These operations are performed using WebAssembly (Wasm) for better performance.
 
 The `Helpers` class provides utility methods for computing magnitudes, dot products,
 and cosine similarity between vectors. It also provides methods to generate search
@@ -21,9 +20,9 @@ const mag = Helpers.computeMagnitude(someFloat32Array);
 
 - [computeMagnitude](Helpers.md#computemagnitude)
 - [cosine](Helpers.md#cosine)
-- [cosineSimilarity](Helpers.md#cosinesimilarity)
 - [dotProduct](Helpers.md#dotproduct)
 - [hashIndex](Helpers.md#hashindex)
+- [magnitudeIndex](Helpers.md#magnitudeindex)
 
 ## Methods
 
@@ -49,13 +48,13 @@ The magnitude of the vector.
 
 #### Defined in
 
-vector-store/vector.helpers.ts:23
+[vector-store/vector.helpers.ts:20](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.helpers.ts#L20)
 
 ___
 
 ### cosine
 
-▸ `Static` **cosine**(`vec1`, `vec2`): `number`
+▸ `Static` **cosine**(`vecA`, `vecB`): `number`
 
 Computes the cosine similarity between two vectors.
 
@@ -65,8 +64,8 @@ This method scales the cosine similarity to be within [0, 1].
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `vec1` | `Float32Array` | The first vector. |
-| `vec2` | `Float32Array` | The second vector. |
+| `vecA` | `Float32Array` | The first vector. |
+| `vecB` | `Float32Array` | The second vector. |
 
 #### Returns
 
@@ -76,40 +75,13 @@ The scaled cosine similarity of the vectors.
 
 #### Defined in
 
-vector-store/vector.helpers.ts:91
-
-___
-
-### cosineSimilarity
-
-▸ `Static` **cosineSimilarity**(`vec1`, `vec2`): `Float32Array`
-
-Computes the cosine similarities of two vectors in batch.
-
-This method utilizes a Wasm method for high performance.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `vec1` | `Float32Array` | The first vector. |
-| `vec2` | `Float32Array` | The second vector. |
-
-#### Returns
-
-`Float32Array`
-
-The cosine similarity of the vectors.
-
-#### Defined in
-
-vector-store/vector.helpers.ts:77
+[vector-store/vector.helpers.ts:73](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.helpers.ts#L73)
 
 ___
 
 ### dotProduct
 
-▸ `Static` **dotProduct**(`vec1`, `vec2`): `number`
+▸ `Static` **dotProduct**(`vecA`, `vecB`): `number`
 
 Computes the dot product of two vectors.
 
@@ -119,8 +91,8 @@ This method utilizes a Wasm method for high performance.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `vec1` | `Float32Array` | The first vector. |
-| `vec2` | `Float32Array` | The second vector. |
+| `vecA` | `Float32Array` | The first vector. |
+| `vecB` | `Float32Array` | The second vector. |
 
 #### Returns
 
@@ -130,7 +102,7 @@ The dot product of the vectors.
 
 #### Defined in
 
-vector-store/vector.helpers.ts:37
+[vector-store/vector.helpers.ts:33](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.helpers.ts#L33)
 
 ___
 
@@ -158,4 +130,33 @@ An object containing the `IDBKeyRange` to be used for querying.
 
 #### Defined in
 
-vector-store/vector.helpers.ts:64
+[vector-store/vector.helpers.ts:60](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.helpers.ts#L60)
+
+___
+
+### magnitudeIndex
+
+▸ `Static` **magnitudeIndex**(`vec`, `tolerance`): `Object`
+
+Computes a range for magnitude-based querying, given a tolerance level.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `vec` | `Float32Array` | The vector for which to compute the magnitude index. |
+| `tolerance` | `number` | The acceptable tolerance level for the magnitude. |
+
+#### Returns
+
+`Object`
+
+An object containing the `IDBKeyRange` to be used for querying.
+
+| Name | Type |
+| :------ | :------ |
+| `range` | `IDBKeyRange` |
+
+#### Defined in
+
+[vector-store/vector.helpers.ts:46](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.helpers.ts#L46)

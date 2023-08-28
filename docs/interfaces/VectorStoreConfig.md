@@ -1,4 +1,4 @@
-[indexed-vector-db](../README.md) / VectorStoreConfig
+[indexed-vector-store](../README.md) / VectorStoreConfig
 
 # Interface: VectorStoreConfig
 
@@ -43,7 +43,7 @@ Configuration options for internal caching.
 
 #### Defined in
 
-vector-store/vector.config.ts:42
+[vector-store/vector.config.ts:42](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.config.ts#L42)
 
 ___
 
@@ -62,7 +62,7 @@ Configuration options for Locality-Sensitive Hashing (LSH).
 
 #### Defined in
 
-vector-store/vector.config.ts:19
+[vector-store/vector.config.ts:19](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.config.ts#L19)
 
 ___
 
@@ -80,4 +80,4 @@ Configuration options for magnitude-based retrieval.
 
 #### Defined in
 
-vector-store/vector.config.ts:32
+[vector-store/vector.config.ts:32](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.config.ts#L32)

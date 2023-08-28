@@ -1,4 +1,4 @@
-[indexed-vector-db](../README.md) / VectorStore
+[indexed-vector-store](../README.md) / VectorStore
 
 # Class: VectorStore<T\>
 
@@ -55,7 +55,7 @@ Creates an instance of the `VectorStore` class.
 
 | Name | Type | Default value | Description |
 | :------ | :------ | :------ | :------ |
-| `db` | `IDBPDatabase`<`DBSchema`\> | `undefined` | The indexedDB database to be used. |
+| `db` | `IDBPDatabase`<`CustomDBSchema`\> | `undefined` | The indexedDB database to be used. |
 | `config` | [`VectorStoreConfig`](../interfaces/VectorStoreConfig.md) | `defaultConfig` | Configuration object. Uses default configuration if not provided. |
 
 **`Throws`**
@@ -64,7 +64,7 @@ Throws an error if the provided configuration is invalid.
 
 #### Defined in
 
-store.ts:37
+[store.ts:45](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/store.ts#L45)
 
 ## Methods
 
@@ -84,7 +84,7 @@ VectorStoreInterface.clear
 
 #### Defined in
 
-store.ts:239
+[store.ts:232](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/store.ts#L232)
 
 ___
 
@@ -114,13 +114,13 @@ VectorStoreInterface.delete
 
 #### Defined in
 
-store.ts:228
+[store.ts:221](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/store.ts#L221)
 
 ___
 
 ### exportToFile
 
-▸ **exportToFile**(`filename`): `Promise`<`void`\>
+▸ **exportToFile**(`filename?`): `Promise`<`void`\>
 
 Exports all records from the store to a JSON file.
 
@@ -128,7 +128,7 @@ Exports all records from the store to a JSON file.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `filename` | `string` | The name of the file to export to. |
+| `filename?` | `string` | The name of the file to export to. |
 
 #### Returns
 
@@ -136,7 +136,7 @@ Exports all records from the store to a JSON file.
 
 #### Defined in
 
-store.ts:253
+[store.ts:246](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/store.ts#L246)
 
 ___
 
@@ -167,7 +167,7 @@ VectorStoreInterface.insert
 
 #### Defined in
 
-store.ts:122
+[store.ts:115](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/store.ts#L115)
 
 ___
 
@@ -201,7 +201,7 @@ VectorStoreInterface.searchByIndex
 
 #### Defined in
 
-store.ts:163
+[store.ts:156](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/store.ts#L156)
 
 ___
 
@@ -223,7 +223,7 @@ Sets the embedding strategy for this `VectorStore` instance.
 
 #### Defined in
 
-store.ts:68
+[store.ts:76](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/store.ts#L76)
 
 ___
 
@@ -254,4 +254,4 @@ VectorStoreInterface.update
 
 #### Defined in
 
-store.ts:212
+[store.ts:205](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/store.ts#L205)

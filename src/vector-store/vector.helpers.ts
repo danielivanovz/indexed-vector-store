@@ -1,6 +1,5 @@
 /**
  * A utility class that provides various helper methods for vector operations.
- * These operations are performed using WebAssembly (Wasm) for better performance.
  *
  * The `Helpers` class provides utility methods for computing magnitudes, dot products,
  * and cosine similarity between vectors. It also provides methods to generate search
