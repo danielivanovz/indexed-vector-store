@@ -17,7 +17,7 @@ export class VectorDTO implements Vector {
     }
 
     hydrateVec(lsh: LSH): this {
-        this.hash = lsh.computeHash(this.vector)
+        this.hash = lsh.computeHash(this.asArray())
         this.magnitude = helpers.computeMagnitude(this.vector)
         return this
     }

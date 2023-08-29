@@ -17,8 +17,22 @@ export interface EmbeddingsStore {
     }
 }
 
+export interface ConfigurationsStore {
+    key: string
+    value: {
+        name: string
+        value: {
+            dimension: number
+            k: number
+            projection: number[][]
+        }
+    }
+    indexes: {}
+}
+
 export interface CustomDBSchema {
     embeddings: EmbeddingsStore
+    configurations: ConfigurationsStore
 }
 
 export interface CustomDBConfig {
@@ -27,7 +41,7 @@ export interface CustomDBConfig {
         version: number
     }
     storeName: string[]
-    keyPath: 'vector'
+    keyPath: 'text'
     strategy: UpgradeStrategy<CustomDBSchema>
     options: {
         autoIncrement: boolean

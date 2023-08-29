@@ -32,6 +32,7 @@ const store = new VectorStore(db, { lsh: { dimension: 128, k: 50 }, magnitude: {
 - [clear](VectorStore.md#clear)
 - [delete](VectorStore.md#delete)
 - [exportToFile](VectorStore.md#exporttofile)
+- [importFromFile](VectorStore.md#importfromfile)
 - [insert](VectorStore.md#insert)
 - [searchByIndex](VectorStore.md#searchbyindex)
 - [setEmbeddingStrategy](VectorStore.md#setembeddingstrategy)
@@ -41,7 +42,7 @@ const store = new VectorStore(db, { lsh: { dimension: 128, k: 50 }, magnitude: {
 
 ### constructor
 
-• **new VectorStore**<`T`\>(`db`, `config?`)
+• **new VectorStore**<`T`\>(`db`, `config`)
 
 Creates an instance of the `VectorStore` class.
 
@@ -53,10 +54,10 @@ Creates an instance of the `VectorStore` class.
 
 #### Parameters
 
-| Name | Type | Default value | Description |
-| :------ | :------ | :------ | :------ |
-| `db` | `IDBPDatabase`<`CustomDBSchema`\> | `undefined` | The indexedDB database to be used. |
-| `config` | [`VectorStoreConfig`](../interfaces/VectorStoreConfig.md) | `defaultConfig` | Configuration object. Uses default configuration if not provided. |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `db` | `IDBPDatabase`<`CustomDBSchema`\> | The indexedDB database to be used. |
+| `config` | [`VectorStoreConfig`](../interfaces/VectorStoreConfig.md) | Configuration object. Uses default configuration if not provided. |
 
 **`Throws`**
 
@@ -64,7 +65,7 @@ Throws an error if the provided configuration is invalid.
 
 #### Defined in
 
-[store.ts:45](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/store.ts#L45)
+[store.ts:45](https://github.com/danielivanovz/indexed-vector-store/blob/01a8e5f/src/store.ts#L45)
 
 ## Methods
 
@@ -84,7 +85,7 @@ VectorStoreInterface.clear
 
 #### Defined in
 
-[store.ts:232](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/store.ts#L232)
+[store.ts:264](https://github.com/danielivanovz/indexed-vector-store/blob/01a8e5f/src/store.ts#L264)
 
 ___
 
@@ -114,7 +115,7 @@ VectorStoreInterface.delete
 
 #### Defined in
 
-[store.ts:221](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/store.ts#L221)
+[store.ts:253](https://github.com/danielivanovz/indexed-vector-store/blob/01a8e5f/src/store.ts#L253)
 
 ___
 
@@ -136,7 +137,29 @@ Exports all records from the store to a JSON file.
 
 #### Defined in
 
-[store.ts:246](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/store.ts#L246)
+[store.ts:278](https://github.com/danielivanovz/indexed-vector-store/blob/01a8e5f/src/store.ts#L278)
+
+___
+
+### importFromFile
+
+▸ **importFromFile**(`file`): `Promise`<`void`\>
+
+Imports records from a JSON file into the store.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `file` | `File` | The JSON file to import. |
+
+#### Returns
+
+`Promise`<`void`\>
+
+#### Defined in
+
+[store.ts:312](https://github.com/danielivanovz/indexed-vector-store/blob/01a8e5f/src/store.ts#L312)
 
 ___
 
@@ -167,7 +190,7 @@ VectorStoreInterface.insert
 
 #### Defined in
 
-[store.ts:115](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/store.ts#L115)
+[store.ts:139](https://github.com/danielivanovz/indexed-vector-store/blob/01a8e5f/src/store.ts#L139)
 
 ___
 
@@ -201,7 +224,7 @@ VectorStoreInterface.searchByIndex
 
 #### Defined in
 
-[store.ts:156](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/store.ts#L156)
+[store.ts:180](https://github.com/danielivanovz/indexed-vector-store/blob/01a8e5f/src/store.ts#L180)
 
 ___
 
@@ -223,7 +246,7 @@ Sets the embedding strategy for this `VectorStore` instance.
 
 #### Defined in
 
-[store.ts:76](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/store.ts#L76)
+[store.ts:100](https://github.com/danielivanovz/indexed-vector-store/blob/01a8e5f/src/store.ts#L100)
 
 ___
 
@@ -254,4 +277,4 @@ VectorStoreInterface.update
 
 #### Defined in
 
-[store.ts:205](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/store.ts#L205)
+[store.ts:237](https://github.com/danielivanovz/indexed-vector-store/blob/01a8e5f/src/store.ts#L237)

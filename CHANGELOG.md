@@ -1,5 +1,11 @@
 # indexed-vector-store
 
+## 1.4.0
+
+### Minor Changes
+
+-   added export to file and lsh config persistance
+
 ## 1.3.1
 
 ### Patch Changes

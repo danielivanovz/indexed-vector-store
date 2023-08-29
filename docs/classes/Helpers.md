@@ -48,7 +48,7 @@ The magnitude of the vector.
 
 #### Defined in
 
-[vector-store/vector.helpers.ts:20](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.helpers.ts#L20)
+[vector-store/vector.helpers.ts:20](https://github.com/danielivanovz/indexed-vector-store/blob/01a8e5f/src/vector-store/vector.helpers.ts#L20)
 
 ___
 
@@ -75,7 +75,7 @@ The scaled cosine similarity of the vectors.
 
 #### Defined in
 
-[vector-store/vector.helpers.ts:73](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.helpers.ts#L73)
+[vector-store/vector.helpers.ts:73](https://github.com/danielivanovz/indexed-vector-store/blob/01a8e5f/src/vector-store/vector.helpers.ts#L73)
 
 ___
 
@@ -102,7 +102,7 @@ The dot product of the vectors.
 
 #### Defined in
 
-[vector-store/vector.helpers.ts:33](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.helpers.ts#L33)
+[vector-store/vector.helpers.ts:33](https://github.com/danielivanovz/indexed-vector-store/blob/01a8e5f/src/vector-store/vector.helpers.ts#L33)
 
 ___
 
@@ -130,7 +130,7 @@ An object containing the `IDBKeyRange` to be used for querying.
 
 #### Defined in
 
-[vector-store/vector.helpers.ts:60](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.helpers.ts#L60)
+[vector-store/vector.helpers.ts:60](https://github.com/danielivanovz/indexed-vector-store/blob/01a8e5f/src/vector-store/vector.helpers.ts#L60)
 
 ___
 
@@ -159,4 +159,4 @@ An object containing the `IDBKeyRange` to be used for querying.
 
 #### Defined in
 
-[vector-store/vector.helpers.ts:46](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.helpers.ts#L46)
+[vector-store/vector.helpers.ts:46](https://github.com/danielivanovz/indexed-vector-store/blob/01a8e5f/src/vector-store/vector.helpers.ts#L46)

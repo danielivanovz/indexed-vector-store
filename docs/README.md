@@ -37,4 +37,4 @@ defaultConfig
 
 #### Defined in
 
-[vector-store/vector.config.ts:62](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.config.ts#L62)
+[vector-store/vector.config.ts:62](https://github.com/danielivanovz/indexed-vector-store/blob/01a8e5f/src/vector-store/vector.config.ts#L62)

@@ -23,31 +23,33 @@ const hash = lsh.computeHash(someFloat32Array);
 ### Methods
 
 - [computeHash](LSH.md#computehash)
+- [storeProjections](LSH.md#storeprojections)
 
 ## Constructors
 
 ### constructor
 
-• **new LSH**(`dimensions`, `k`)
+• **new LSH**(`dimensions`, `k`, `projection?`)
 
 Initializes a new `LSH` instance.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `dimensions` | `number` | The number of dimensions in the vectors to be hashed. |
-| `k` | `number` | The number of random projections (hashes) to generate. |
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `dimensions` | `number` | `undefined` | The number of dimensions in the vectors to be hashed. |
+| `k` | `number` | `undefined` | The number of random projections (hashes) to generate. |
+| `projection` | `number`[][] | `[]` | - |
 
 #### Defined in
 
-[vector-store/vector.lsh.ts:20](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.lsh.ts#L20)
+[vector-store/vector.lsh.ts:23](https://github.com/danielivanovz/indexed-vector-store/blob/01a8e5f/src/vector-store/vector.lsh.ts#L23)
 
 ## Methods
 
 ### computeHash
 
-▸ **computeHash**(`vecf32`): `string`
+▸ **computeHash**(`vector`): `string`
 
 Computes a hash for the given vector.
 
@@ -56,9 +58,9 @@ Each projection results in a bit ('0' or '1') and the bits are concatenated to f
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `vecf32` | `Float32Array` | The vector for which to compute the hash. Should be a Float32Array. |
+| Name | Type |
+| :------ | :------ |
+| `vector` | `number`[] |
 
 #### Returns
 
@@ -68,4 +70,28 @@ The computed hash as a string of '0's and '1's.
 
 #### Defined in
 
-[vector-store/vector.lsh.ts:51](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.lsh.ts#L51)
+[vector-store/vector.lsh.ts:74](https://github.com/danielivanovz/indexed-vector-store/blob/01a8e5f/src/vector-store/vector.lsh.ts#L74)
+
+___
+
+### storeProjections
+
+▸ **storeProjections**(`db`): `Promise`<`void`\>
+
+Stores the projections in the database for later use.
+
+This is an internal utility method used during the initialization.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `db` | `IDBPDatabase`<`CustomDBSchema`\> | The database to store the projections in. |
+
+#### Returns
+
+`Promise`<`void`\>
+
+#### Defined in
+
+[vector-store/vector.lsh.ts:39](https://github.com/danielivanovz/indexed-vector-store/blob/01a8e5f/src/vector-store/vector.lsh.ts#L39)

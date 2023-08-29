@@ -5,7 +5,7 @@ import { CustomDBConfig, CustomDBSchema } from "./db.types"
 
 export const schemadb: CustomDBSchema = {
     embeddings: {
-        key: 'vector',
+        key: 'text',
         value: {
             id: '',
             vector: [],
@@ -18,13 +18,25 @@ export const schemadb: CustomDBSchema = {
             timestamp: 'timestamp',
         },
     },
+    configurations: {
+        key: 'name',
+        value: {
+            name: '',
+            value: {
+                dimension: 0,
+                k: 0,
+                projection: [],
+            },
+        },
+        indexes: {},
+    },
 };
 
 
 export const configdb: CustomDBConfig = {
     database: { name: 'vector-store', version: 1 },
-    storeName: ['embeddings'],
-    keyPath: 'vector',
+    storeName: ['embeddings', 'configurations'],
+    keyPath: 'text',
     strategy: new EmbeddingsUpgradeStrategy(),
     options: { autoIncrement: true },
     uniqueIndexes: ['text'],

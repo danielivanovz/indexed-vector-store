@@ -10,12 +10,12 @@ import {
     Transaction,
     Vector,
     VectorCache,
-    VectorDTO,
     VectorStoreConfig,
     VectorStoreInterface,
     defaultConfig,
     helpers,
 } from '.'
+import { VectorDTO } from './vector-store/vector.dto'
 
 /**
  * `VectorStore` class for managing vector embeddings.
@@ -28,8 +28,8 @@ export class VectorStore<T> implements VectorStoreInterface {
     private db: IDBPDatabase<CustomDBSchema>
     private config: VectorStoreConfig = defaultConfig
 
-    private lsh: LSH = new LSH(this.config.lsh.dimension, this.config.lsh.k)
-    private cache: VectorCache<string, Vector[]> = new VectorCache(this.config.cache.maxCandidates)
+    private lsh: LSH
+    private cache: VectorCache<string, Vector[]>
     private heap: MaxHeap<Vector & { score: number }> = new MaxHeap()
 
     private embeddingStrategy: EmbeddingStrategy<T> | null = null
@@ -42,10 +42,34 @@ export class VectorStore<T> implements VectorStoreInterface {
      *
      * @throws {Error} Throws an error if the provided configuration is invalid.
      */
-    constructor(db: IDBPDatabase<CustomDBSchema>, config: VectorStoreConfig = defaultConfig) {
+    constructor(db: IDBPDatabase<CustomDBSchema>, config: VectorStoreConfig) {
         this.validateConfig(config)
         this.db = db
         this.config = config
+        this.retrieveConfig().then((hasProjections) => {
+            if (!hasProjections) {
+                this.lsh = new LSH(this.config.lsh.dimension, this.config.lsh.k)
+                this.lsh.storeProjections(this.db)
+            }
+        })
+        this.lsh = new LSH(this.config.lsh.dimension, this.config.lsh.k)
+        this.cache = new VectorCache(this.config.cache.maxCandidates)
+    }
+
+    private retrieveConfig = async (): Promise<boolean> => {
+        let hasProjections = false
+
+        const tx = this.db.transaction('configurations', 'readonly')
+        const store = tx.objectStore('configurations')
+
+        const projections = await store.getAll()
+        if (projections.length) {
+            this.lsh = new LSH(this.config.lsh.dimension, this.config.lsh.k, projections[0].value)
+            hasProjections = true
+        }
+
+        await tx.done
+        return hasProjections
     }
 
     /**
@@ -131,9 +155,9 @@ export class VectorStore<T> implements VectorStoreInterface {
             const typedRecords = records as Vector[]
             const { tx, store } = this.transaction('readwrite', skipDuplicates)
 
-            const promises = typedRecords.map((record: Vector) => {
-                const hydrated = new VectorDTO(record).hydrateVec(this.lsh).forInsert()
-                return store.add!({ ...record, ...hydrated, timestamp })
+            const promises = typedRecords.map((record: Vector, i) => {
+                const hydrated = new VectorDTO(record).hydrateVec(this.lsh)
+                return store.put!({ ...record, ...hydrated, timestamp, id: i })
             })
 
             await Promise.allSettled(promises).finally(() => tx.done)
@@ -164,14 +188,17 @@ export class VectorStore<T> implements VectorStoreInterface {
 
         const { tx, store } = this.transaction('readonly')
 
-        const vectorf32 = new VectorDTO(vector).asFloat32Array()
-        const get = async (index: string, range: any) => await store.index(index).getAll(range)
+        const vectorf32 = new VectorDTO(vector)
+        const get = async (index: string, range: any) => {
+            const indexStore = store.index(index)
+            return await indexStore.getAll(range)
+        }
 
         // prettier-ignore
         const QueryStrategy: Record<IndexName, () => Promise<Vector[]>> = {
             text:       () => get(IndexName.Text, vector.text),
-            hash:       () => get(IndexName.Hash, IDBKeyRange.bound(this.lsh.computeHash(vectorf32), this.lsh.computeHash(vectorf32))),
-            magnitude:  () => get(IndexName.Magnitude, helpers.magnitudeIndex(vectorf32, this.config.magnitude.tolerance).range),
+            hash:       () => get(IndexName.Hash, IDBKeyRange.bound(this.lsh.computeHash(new VectorDTO(vectorf32).asArray()), new VectorDTO(vectorf32).asArray())),
+            magnitude:  () => get(IndexName.Magnitude, helpers.magnitudeIndex(new VectorDTO(vectorf32).asFloat32Array(), this.config.magnitude.tolerance).range),
             vector:     () => get(IndexName.Vector, vectorf32),
             timestamp:  () => get(IndexName.Timestamp, vector.timestamp),
         }
@@ -180,14 +207,19 @@ export class VectorStore<T> implements VectorStoreInterface {
 
         const bucket = await QueryStrategy[indexName]().finally(() => tx.done)
 
+        console.log({ bucket })
+
         bucket.forEach((vector: Vector) => {
-            const similarity = helpers.cosine(vectorf32, vector.vector as Float32Array)
+            const similarity = helpers.cosine(
+                vectorf32.asFloat32Array(),
+                vector.vector as Float32Array
+            )
             this.heap.insert({ ...vector, score: similarity })
         })
 
-        const sorted = Array.from({ length: limit }, () => this.heap.extractMax()).filter(
-            (v) => v !== null
-        ) as Array<Vector & { score: number }>
+        const sorted: Array<Vector & { score: number }> = Array.from({ length: limit }, () =>
+            this.heap.extractMax()
+        ).filter((v) => v !== null) as Array<Vector & { score: number }>
 
         this.cache.set(cacheKey, sorted)
 
@@ -250,7 +282,7 @@ export class VectorStore<T> implements VectorStoreInterface {
 
         const vecs = vectors.map((vector) => ({
             ...vector,
-            vector: Array.from(vector.vector),
+            vector: new VectorDTO(vector).asArray(),
         }))
 
         filename = filename ? filename : `vectors-${Date.now().toString()}.json`
@@ -269,5 +301,25 @@ export class VectorStore<T> implements VectorStoreInterface {
 
         document.body.removeChild(link)
         URL.revokeObjectURL(url)
+    }
+
+    /**
+     * Imports records from a JSON file into the store.
+     *
+     * @param file - The JSON file to import.
+     *
+     */
+    async importFromFile(file: File): Promise<void> {
+        const reader = new FileReader()
+        reader.readAsText(file, 'UTF-8')
+
+        reader.onload = async (event) => {
+            try {
+                const vectors = JSON.parse(event.target!.result as string) as Vector[]
+                this.insert(vectors)
+            } catch (error) {
+                console.error(error)
+            }
+        }
     }
 }

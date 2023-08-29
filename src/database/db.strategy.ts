@@ -1,6 +1,6 @@
 import { IDBPDatabase, IndexNames, StoreNames } from 'idb'
 import { schemadb } from './db.config'
-import { CustomDBConfig, CustomDBSchema } from './db.types'
+import { CustomDBSchema } from './db.types'
 
 export interface UpgradeStrategy<DBSchemaType> {
     upgrade(
@@ -36,6 +36,10 @@ export class EmbeddingsUpgradeStrategy implements UpgradeStrategy<CustomDBSchema
                         )
                     }
                 )
+            }
+
+            if (schemadb.configurations && storeName === 'configurations') {
+                /* configurations store has no indexes */
             }
         }
     }

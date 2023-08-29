@@ -49,7 +49,7 @@ The element with the highest score or `null`.
 
 #### Defined in
 
-[vector-store/vector.heap.ts:82](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.heap.ts#L82)
+[vector-store/vector.heap.ts:82](https://github.com/danielivanovz/indexed-vector-store/blob/01a8e5f/src/vector-store/vector.heap.ts#L82)
 
 ___
 
@@ -71,7 +71,7 @@ Inserts a new element into the heap while maintaining the max-heap property.
 
 #### Defined in
 
-[vector-store/vector.heap.ts:71](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.heap.ts#L71)
+[vector-store/vector.heap.ts:71](https://github.com/danielivanovz/indexed-vector-store/blob/01a8e5f/src/vector-store/vector.heap.ts#L71)
 
 ___
 
@@ -90,7 +90,7 @@ The element with the highest score or `null`.
 
 #### Defined in
 
-[vector-store/vector.heap.ts:102](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.heap.ts#L102)
+[vector-store/vector.heap.ts:102](https://github.com/danielivanovz/indexed-vector-store/blob/01a8e5f/src/vector-store/vector.heap.ts#L102)
 
 ___
 
@@ -108,7 +108,7 @@ An array of all elements in the heap.
 
 #### Defined in
 
-[vector-store/vector.heap.ts:112](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.heap.ts#L112)
+[vector-store/vector.heap.ts:112](https://github.com/danielivanovz/indexed-vector-store/blob/01a8e5f/src/vector-store/vector.heap.ts#L112)
 
 ___
 
@@ -126,4 +126,4 @@ The number of elements in the heap.
 
 #### Defined in
 
-[vector-store/vector.heap.ts:121](https://github.com/danielivanovz/indexed-vector-store/blob/5e87fbd/src/vector-store/vector.heap.ts#L121)
+[vector-store/vector.heap.ts:121](https://github.com/danielivanovz/indexed-vector-store/blob/01a8e5f/src/vector-store/vector.heap.ts#L121)
