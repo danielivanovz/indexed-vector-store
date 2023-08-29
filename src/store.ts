@@ -207,8 +207,6 @@ export class VectorStore<T> implements VectorStoreInterface {
 
         const bucket = await QueryStrategy[indexName]().finally(() => tx.done)
 
-        console.log({ bucket })
-
         bucket.forEach((vector: Vector) => {
             const similarity = helpers.cosine(
                 vectorf32.asFloat32Array(),
